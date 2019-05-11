@@ -11,7 +11,7 @@ ACCESS_KEY      = "?"
 ACCESS_SECRET   = "?"
 ```
 
-You'll also want to make your own `tweets.txt` for your bot to choose tweets from.
+You'll also want to edit `tweets.txt` with your own tweets for your bot to choose from.
 
 # Usage
 To tweet indefinitely from a predefined file of tweets, use::
