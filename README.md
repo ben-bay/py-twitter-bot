@@ -12,4 +12,4 @@ Before this can work, fill out these fields in `tokens.py`::
 
 # Usage
 To tweet indefinitely from a predefined file of tweets, use::
-    `twitterbot.py run --file tweets.txt` 
+    twitterbot.py run --file tweets.txt 
