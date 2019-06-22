@@ -55,7 +55,6 @@ def process_args(args):
 
     elif args.which is "tweet":
         print(' '.join(args.text))
-        os.sys.exit()
         return twitter_interface.tweet(args.text)
 
 
@@ -90,3 +89,4 @@ if __name__ == "__main__":
     ret = main()
     print(ret)
     sys.exit(ret)
+
