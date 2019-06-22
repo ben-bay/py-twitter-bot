@@ -18,7 +18,7 @@ Make sure you're using python 3.
 ## Usage
 To manually tweet text from the command line, use:
 ```bash
-python py-twitter-bot.py tweet <text here>
+python py-twitter-bot.py tweet "Hello world"
 ```
 
 To tweet indefinitely from a predefined file of tweets, use:

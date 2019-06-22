@@ -51,6 +51,8 @@ def process_args(args):
         return twitterbot.chron_tweets()
 
     elif args.which is "tweet":
+        print(' '.join(args.text))
+        os.sys.exit()
         return twitter_interface.tweet(args.text)
 
 
@@ -82,4 +84,6 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    ret = main()
+    print(ret)
+    sys.exit(ret)
