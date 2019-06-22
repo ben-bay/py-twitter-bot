@@ -24,12 +24,13 @@ class Twitterbot():
             self.sleep()
 
 
-    def tweet(self):
-        if self.order == "random":
-            tweet = reader.random_line(self.tweets_filepath)
-        elif self.order == "sequential":
-            tweet = reader.nth_line(self.tweets_filepath, self.tweet_n + 1)
-        twitter_interface.tweet(tweet)
+    def tweet(self, text=None):
+        if text is None:
+            if self.order == "random":
+                text = reader.random_line(self.tweets_filepath)
+            elif self.order == "sequential":
+                text = reader.nth_line(self.tweets_filepath, self.tweet_n + 1)
+        twitter_interface.tweet(text)
         self.tweet_n += 1
 
 
@@ -49,7 +50,7 @@ def process_args(args):
         twitterbot = Twitterbot(tweets_filepath, args.choose, int(args.frequency))
 
         if args.which is "tweet":
-            return twitterbot.tweet()
+            return twitterbot.tweet(args.text)
 
         elif args.which is "run":
             return twitterbot.chron_tweets()
@@ -62,19 +63,17 @@ def setup_argparse():
 
     run = subparsers.add_parser("run", help="Run your twitter bot process indefinitely.")
     run.set_defaults(which="run")
-    run.add_argument('-p', '--file', action='store', type=str, default=None,
+    run.add_argument('-f', '--file', action='store', type=str, default="tweets.txt",
                         help='Specify the filepath to tweets.txt.')
     run.add_argument('-c', '--choose', choices=["sequential","random"], default="random",
                         help="Options: 'sequential', 'random'")
-    run.add_argument('-f', '--frequency', action="store", default=False,
+    run.add_argument('-f', '--frequency', action="store", type=int, default=60,
                         help="Tweet frequency in minutes")
 
     tweet = subparsers.add_parser("tweet", help="Publish one tweet.")
     tweet.set_defaults(which="tweet")
-    tweet.add_argument('-p', '--path', action='store', type=str, default=None,
-                        help='Specify the filepath to tweets.txt.')
-    tweet.add_argument('-c', '--choose', choices=["sequential","random"], default="random",
-                        help="Options: 'sequential', 'random'")
+    tweet.add_argument('text', action='store', type=str,
+                        help='Text to tweet')
     return parser
 
 
