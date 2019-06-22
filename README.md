@@ -16,5 +16,7 @@ You'll also want to edit `tweets.txt` with your own tweets for your bot to choos
 ## Usage
 To tweet indefinitely from a predefined file of tweets, use::
 ```bash
-twitterbot.py run --file tweets.txt 
+python py-twitter-bot.py run --file tweets.txt 
 ```
+
+Make sure you're using python 3.
