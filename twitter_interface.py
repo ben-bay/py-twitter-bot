@@ -10,7 +10,7 @@ try:
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
 except tweepy.error.TweepError as e:
-    print(f"Error: Have you replaced the ?s in tokens.py?\n\nTraceback:\n{e}")
+    print(f"\nError: Have you replaced the ?s in tokens.py?\nTraceback:\n{e}")
     raise
 except:
     print(f"Unexpected error: {sys.exc_info()[0]}")
@@ -21,7 +21,7 @@ def tweet(text):
     try:
         return api.update_status(text)
     except tweepy.error.TweepError as e:
-        print(f"Error: Have you replaced the ?s in tokens.py?\n\nTraceback:\n{e}")
+        print(f"\nError: Have you replaced the ?s in tokens.py?\nTraceback:\n{e}")
         raise
     except:
         print(f"Unexpected error: {sys.exc_info()[0]}")

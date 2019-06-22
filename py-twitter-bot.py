@@ -40,20 +40,18 @@ class Twitterbot():
 
 def process_args(args):
     """This function contains the logic for processing the argparser."""
-    if args.which is "run" or "tweet":
-        tweets_filepath = args.file
+    if args.which is "run":
+        tweets_filepath = args.tweets
         if tweets_filepath is None or "":
             tweets_filepath = "tweets.txt"
         if not os.path.exists(tweets_filepath):
             raise ValueError(f"The path '{tweets_filepath}' does not exist.")
 
         twitterbot = Twitterbot(tweets_filepath, args.choose, int(args.frequency))
+        return twitterbot.chron_tweets()
 
-        if args.which is "tweet":
-            return twitterbot.tweet(args.text)
-
-        elif args.which is "run":
-            return twitterbot.chron_tweets()
+    elif args.which is "tweet":
+        return twitter_interface.tweet(args.text)
 
 
 def setup_argparse():
@@ -63,7 +61,7 @@ def setup_argparse():
 
     run = subparsers.add_parser("run", help="Run your twitter bot process indefinitely.")
     run.set_defaults(which="run")
-    run.add_argument('-f', '--file', action='store', type=str, default="tweets.txt",
+    run.add_argument('-t', '--tweets', action='store', type=str, default="tweets.txt",
                         help='Specify the filepath to tweets.txt.')
     run.add_argument('-c', '--choose', choices=["sequential","random"], default="random",
                         help="Options: 'sequential', 'random'")
@@ -72,7 +70,7 @@ def setup_argparse():
 
     tweet = subparsers.add_parser("tweet", help="Publish one tweet.")
     tweet.set_defaults(which="tweet")
-    tweet.add_argument('text', action='store', type=str,
+    tweet.add_argument('text', nargs='+', action='store', type=str,
                         help='Text to tweet')
     return parser
 
