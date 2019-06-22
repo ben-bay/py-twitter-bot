@@ -7,10 +7,10 @@ Before anything in this module can work, create an app with your [Twitter Develo
 
 Next, fill out these fields in `tokens.py`:
 ```python
-CONSUMER_KEY    = "?"
-CONSUMER_SECRET = "?"
-ACCESS_KEY      = "?"
-ACCESS_SECRET   = "?"
+MY_TOKENS = Tokens(consumer_key="?",
+                   consumer_secret="?",
+                   access_key="?",
+                   access_secret="?")
 ```
 
 Make sure you're using python 3.
