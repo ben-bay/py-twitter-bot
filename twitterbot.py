@@ -9,35 +9,50 @@ import time
 import reader
 import twitter_interface
 
-TWEET_NO = 0
+
+class Twitterbot():
+    def __init__(self, tweets_filepath, order, frequency):
+        self.tweet_n = 0
+        self.tweets_filepath = tweets_filepath
+        self.order = order
+        self.frequency = frequency
+
+
+    def chron_tweets(self):
+        while True:
+            self.tweet()
+            self.sleep()
+
+
+    def tweet(self):
+        if self.order == "random":
+            tweet = reader.random_line(self.tweets_filepath)
+        elif self.order == "sequential":
+            tweet = reader.nth_line(self.tweets_filepath, self.tweet_n + 1)
+        twitter_interface.tweet(tweet)
+        self.tweet_n += 1
+
+
+    def sleep(self):
+        time.sleep(self.frequency * 60)
+
 
 def process_args(args):
     """This function contains the logic for processing the argparser."""
     if args.which is "run" or "tweet":
-        tweets_filepath = args.path
-        if tweets_filepath is None:
+        tweets_filepath = args.file
+        if tweets_filepath is None or "":
             tweets_filepath = "tweets.txt"
         if not os.path.exists(tweets_filepath):
             raise ValueError(f"The path '{tweets_filepath}' does not exist.")
 
-        if args.choose is "random":
-            tweet = reader.random_line(tweets_filepath)
-        elif args.choose is "sequential":
-            tweet = reader.nth_line(tweets_filepath, TWEET_NO + 1)
+        twitterbot = Twitterbot(tweets_filepath, args.choose, int(args.frequency))
 
         if args.which is "tweet":
-            return twitter_interface.tweet(tweet)
+            return twitterbot.tweet()
 
-        if args.which is "run":
-            while True:
-                if args.choose is "random":
-                    tweet = reader.random_line(tweets_filepath)
-                elif args.choose is "sequential":
-                    tweet = reader.nth_line(tweets_filepath, TWEET_NO + 1)
-                twitter_interface.tweet(tweet)
-                TWEET_NO += 1
-                time.sleep(args.frequency * 60)
-            pass
+        elif args.which is "run":
+            return twitterbot.chron_tweets()
 
 
 def setup_argparse():
@@ -47,7 +62,7 @@ def setup_argparse():
 
     run = subparsers.add_parser("run", help="Run your twitter bot process indefinitely.")
     run.set_defaults(which="run")
-    run.add_argument('-p', '--path', action='store', type=str, default=None,
+    run.add_argument('-p', '--file', action='store', type=str, default=None,
                         help='Specify the filepath to tweets.txt.')
     run.add_argument('-c', '--choose', choices=["sequential","random"], default="random",
                         help="Options: 'sequential', 'random'")
