@@ -8,10 +8,13 @@ import time
 
 import reader
 import twitter_interface
+from tokens import MY_TOKENS
 
 
 class Twitterbot():
     def __init__(self, tweets_filepath, order, frequency):
+        self.api = twitter_interface.get_api(MY_TOKENS)
+
         self.tweet_n = 0
         self.tweets_filepath = tweets_filepath
         self.order = order
@@ -30,7 +33,7 @@ class Twitterbot():
                 text = reader.random_line(self.tweets_filepath)
             elif self.order == "sequential":
                 text = reader.nth_line(self.tweets_filepath, self.tweet_n + 1)
-        twitter_interface.tweet(text)
+        twitter_interface.tweet(self.api, text)
         self.tweet_n += 1
 
 
