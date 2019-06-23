@@ -24,7 +24,7 @@ To manually tweet text from the command line, use:
 python py-twitter-bot.py tweet "Hello world"
 ```
 
-To tweet indefinitely from a predefined file of tweets, use:
+To tweet indefinitely from a predefined file of tweets, use something like this from your server:
 ```bash
 python py-twitter-bot.py run --tweets tweets.txt --order sequential --frequency 60
 ```
