@@ -15,7 +15,7 @@ MY_TOKENS = Tokens(consumer_key="?",
 
 Make sure you're using python 3, then run:
 ```bash
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Usage
