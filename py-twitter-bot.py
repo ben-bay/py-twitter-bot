@@ -32,9 +32,12 @@ class Twitterbot():
             if self.order == "random":
                 text = reader.random_line(self.tweets_filepath)
             elif self.order == "sequential":
-                text = reader.nth_line(self.tweets_filepath, self.tweet_n + 1)
-        twitter_interface.tweet(self.api, text)
+                text = reader.pop_first_line(self.tweets_filepath)
+        ret = twitter_interface.tweet(self.api, text)
         self.tweet_n += 1
+        with open("tweeted.txt", "w") as _file:
+            _file.write(text)
+        return ret
 
 
     def sleep(self):
