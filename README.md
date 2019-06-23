@@ -3,9 +3,9 @@
 Code to easily make your own twitter bot.
 
 ## Getting Started
-Before anything in this module can work, create an app with your [Twitter Developer](https://developer.twitter.com) account.
+Before this module can work, create an app with your [Twitter Developer](https://developer.twitter.com) account.
 
-Next, fill out these fields in `tokens.py`:
+Under `Keys and tokens` find the information needed to fill out these fields in `tokens.py`:
 ```python
 MY_TOKENS = Tokens(consumer_key="?",
                    consumer_secret="?",
@@ -23,7 +23,7 @@ python py-twitter-bot.py tweet "Hello world"
 
 To tweet indefinitely from a predefined file of tweets, use:
 ```bash
-python py-twitter-bot.py run --tweets tweets.txt 
+python py-twitter-bot.py run --tweets tweets.txt --frequency 60
 ```
 Edit `tweets.txt` with your own tweets for your bot to choose from.
 
