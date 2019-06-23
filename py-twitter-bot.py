@@ -30,7 +30,7 @@ class Twitterbot():
     def tweet(self, text=None):
         if text is None:
             if self.order == "random":
-                text = reader.random_line(self.tweets_filepath)
+                text = reader.pop_random_line(self.tweets_filepath)
             elif self.order == "sequential":
                 text = reader.pop_first_line(self.tweets_filepath)
         ret = twitter_interface.tweet(self.api, text)

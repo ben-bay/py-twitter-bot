@@ -28,5 +28,5 @@ To tweet indefinitely from a predefined file of tweets, use something like this 
 ```bash
 python py-twitter-bot.py run --tweets tweets.txt --order sequential --frequency 60
 ```
-Edit `tweets.txt` with your own tweets for your bot to choose from.
+Edit `to-tweet.txt` with your own tweets for your bot to choose from. Since duplicates aren't allowed, tweeted tweets are moved to `tweeted.txt`.
 
