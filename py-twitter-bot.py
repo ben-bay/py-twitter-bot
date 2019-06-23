@@ -50,7 +50,7 @@ def process_args(args):
         if not os.path.exists(tweets_filepath):
             raise ValueError(f"The path '{tweets_filepath}' does not exist.")
 
-        twitterbot = Twitterbot(tweets_filepath, args.choose, int(args.frequency))
+        twitterbot = Twitterbot(tweets_filepath, args.order, args.frequency)
         return twitterbot.chron_tweets()
 
     elif args.which is "tweet":
@@ -66,13 +66,13 @@ def setup_argparse():
     run = subparsers.add_parser("run", help="Run your twitter bot process indefinitely.")
     run.set_defaults(which="run")
     run.add_argument('-t', '--tweets', action='store', type=str, default="tweets.txt",
-                        help='Specify the filepath to tweets.txt.')
-    run.add_argument('-c', '--choose', choices=["sequential","random"], default="random",
+                        help='Specify the filepath to tweets.txt')
+    run.add_argument('-o', '--order', choices=["sequential","random"], default="random",
                         help="Options: 'sequential', 'random'")
     run.add_argument('-f', '--frequency', action="store", type=int, default=60,
                         help="Tweet frequency in minutes")
 
-    tweet = subparsers.add_parser("tweet", help="Publish one tweet.")
+    tweet = subparsers.add_parser("tweet", help="Publish one tweet")
     tweet.set_defaults(which="tweet")
     tweet.add_argument('text', nargs='+', action='store', type=str,
                         help='Text to tweet')
