@@ -13,7 +13,10 @@ MY_TOKENS = Tokens(consumer_key="?",
                    access_secret="?")
 ```
 
-Make sure you're using python 3.
+Make sure you're using python 3, then run:
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 To manually tweet text from the command line, use:
